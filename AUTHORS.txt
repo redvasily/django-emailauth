@@ -1,0 +1,1 @@
+Author of django-emailauth is Vasily Sulatskov <redvasily@gmail.com>

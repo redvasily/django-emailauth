@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form action="." method="post">
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Login" />
+    </form>
+    <a href="{% url emailauth_request_password_reset %}">Forgot your password?</a>
+{% endblock %}

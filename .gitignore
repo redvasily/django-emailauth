@@ -1,0 +1,8 @@
+*.pyc
+*.swp
+*~
+
+# Vim stuff
+.vimproject
+Session.vim
+.ropeproject/

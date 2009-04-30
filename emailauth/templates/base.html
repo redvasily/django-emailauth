@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Emailauth example project</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Language" content="en" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+
+        <link rel="stylesheet" type="text/css" href="/media/css/reset.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/media/css/typography.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/media/css/fancy.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/media/css/clearfix.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/media/css/forms.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="/media/css/site.css?v=1" media="screen" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div class="pagewidth">
+                    <div class="clearfix">
+                        <h1 class="alt"><a href="/">Emailauth example project</a></h1>
+                        {% block logarea %}
+                            <div class="logarea">
+                            {% if user.is_authenticated %}
+                                <span>Welcome, {{ user.first_name }}.</span>
+                                <a href="{% url emailauth_account %}">Account</a>
+                                <a href="{% url logout %}">Logout</a>
+                            {% else %}
+                                <a href="{% url register %}">Register</a> <span>|</span> <a href="{% url login %}">Login</a>
+                            {% endif %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="pagewidth">
+                <h1 class="alt">{% block title %}{{ title }}{% endblock %}</h1>
+                <div class="content">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="msg_success">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="push"></div>
+        </div>
+        <div class="footer">
+            <div class="innerfooter">
+                <div class="pagewidth">
+                    <div>
+                        <span class="large" title="I like sticky footers :-)">Sticky footer, for no particular reason.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#{% block logarea %}#}
+        {#    {% if user.is_authenticated %}#}
+        {#        Welcome, {{ user.first_name }}.<br />#}
+        {#        Username: {{ user.username }}<br />#}
+        {#        Email: {{ user.email }}<br />#}
+        {#        <a href="{% url logout %}">Logout</a>#}
+        {#    {% else %}#}
+        {#        <a href="{% url register %}">Register</a> | <a href="{% url login %}">Login</a>#}
+        {#    {% endif %}#}
+        {#{% endblock %}#}
+
+        {#{% block content %}#}
+        {#{% endblock %}#}
+    </body>
+</html>
+
+{# vim: set ft=htmldjango: #}

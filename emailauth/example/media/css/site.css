@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -6em;
+}
+
+.footer, .push {
+    height: 6em;
+}
+
+.header {
+    background: #ddd;
+    border-bottom: 2px solid #aaa;
+    margin: 0px 0px 18px 0px;
+}
+
+.header h1 {
+    font-size: 4em;
+    float: left;
+}
+
+.header h1 a {
+    text-decoration: none;
+}
+
+.logarea {
+    float: right;
+    line-height: 4em;
+}
+
+.logarea a, .logarea span {
+    vertical-align: bottom;
+    line-height: 1em;
+    font-size: 14pt;
+}
+
+.footer {
+    background: #ddd;
+    text-align: center;
+}
+
+.innerfooter {
+    border-top: 2px solid #aaa;
+    padding: 9px 0px 0px 0px;
+}
+
+.content {
+    padding-bottom: 36px;
+}
+
+.pagewidth {
+    width: 960px;
+    margin: 0px auto;
+}

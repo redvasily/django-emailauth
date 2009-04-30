@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Account properties</h1>
+    <table>
+        <tr>
+            <th>Username:</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>First name:</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Default email:</th>
+            <td>{{ user.email }}</td>
+        </tr>
+    </table>
+    <h2>Extra emails</h2>
+    {% if extra_emails %}
+        <ul>
+            {% for email in extra_emails %}
+                <li>
+                    {{ email }}
+                    <a class="toollink" href="{% url emailauth_set_default_email email.id %}">Set as default</a>
+                    <a class="toollink" href="{% url emailauth_delete_email email.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if unverified_emails %}
+        <h3>Unverified emails</h3>
+        <ul>
+            {% for email in unverified_emails %}
+                <li>
+                    {{ email }} &ndash; <a href="#" title="Looks like a good idea">resend verification email</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{% url emailauth_add_email %}">Add email</a>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Set {{ email }} as your new default email?</h2>
+    <form action="." method="post">
+        <input type="submit" name="yes" value="Yes" />
+        <a class="choice" href="{% url emailauth_account %}">No</a>
+    </form>
+{% endblock %}

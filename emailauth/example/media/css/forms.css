@@ -1,0 +1,150 @@
+.formfield {
+    margin-top: 9px;
+}
+
+.fieldname {
+    width: 200px;
+    float: left;
+    padding-top: 3px;
+    padding-left: 20px;
+}
+
+.fieldnamefloat {
+    float: left;
+    padding-top: 3px;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.fieldnameflow {
+    padding-top: 3px;
+    padding-left: 20px;
+}
+
+.fieldname em {
+    color: #bf1600;
+    margin: 0px 0px 0px 5px;
+}
+
+.checkboxfield {
+    float: left;
+    padding-left: 20px;
+    padding-top: 1px;
+    width: 30px;
+}
+
+em.required {
+    color: #bf1600;
+}
+
+.fieldvalue {
+    float: left;
+}
+
+.fieldvalue.flow {
+    padding-left: 20px;
+    float: none;
+}
+
+.checkboxlabel {
+    float: left;
+}
+
+.formfield .help {
+    margin-top: 9px;
+    width: 300px;
+}
+
+.checkboxlabel .help {
+    margin-top: 9px;
+    width: 470px;
+}
+
+.fieldvalue input {
+    width: 150px;
+}
+
+.fieldvalue select {
+    width: 150px;
+}
+
+.selectmultiple {
+    height: 20em;
+}
+
+.fieldvalue input.long, .fieldvalue select.long, .fieldvalue textarea {
+    width: 300px;
+}
+
+.fieldvalue input.short, .fieldvalue select.short {
+    width: 75px;
+}
+
+.requiredfootnote {
+    margin: 9px 0px;
+    padding-left: 20px;
+}
+
+.submitrow {
+    padding-left: 20px;
+}
+
+ul.errorlist {
+    margin: 0px;
+    list-style-type: none;
+    padding: 2px 0px 2px 20px;
+    color: #bf1600;
+    background: url(/media/img/exclamation_white.png) no-repeat;
+}
+
+ul.errorlist li {
+    font-size: 9pt;
+}
+
+.msg_error, .msg_info, .msg_question, .msg_success {
+    background-position: 9px 7px;
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bold;
+    margin: 10px 0px 20px;
+    padding: 6px 14px 6px 36px;
+    vertical-align: middle;
+    border: 2px solid #ddd;
+    background-repeat: no-repeat;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+
+.msg_error {
+    background-color: #FBE3E4;
+    color: #8a1f11;
+    border-color: #FBC2C4;
+    background-image: url(/media/img/error.png);
+}
+
+.msg_info {
+    background-color: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
+    background-image: url(/media/img/info.png);
+}
+
+.msg_success {
+    background-color: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
+    background-image: url(/media/img/success.png);
+}
+
+.msg_question {
+    background-color:#D4F4CE;
+    background-image: url(/media/img/question.png);
+    border:1px solid #B9D6B4;
+}
+
+form table th {
+    vertical-align: baseline;
+    padding-top: 7px;
+}
