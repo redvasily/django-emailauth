@@ -6,3 +6,8 @@
 .vimproject
 Session.vim
 .ropeproject/
+
+# virtualenv stuff
+bin/
+include/
+lib/
