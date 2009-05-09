@@ -4,24 +4,11 @@ from os import path, environ
 from os.path import abspath, dirname, join
 import sys
 
-try:
-    from extrapath import append_path, prepend_path
-except ImportError:
-    append_path = []
-    prepend_path = []
-
 example_dir = dirname(abspath(__file__))
-emailauth_dir = dirname(dirname(example_dir))
+emailauth_dir = dirname(example_dir)
 
-prepend_path.extend([example_dir, emailauth_dir])
-
-for p in reversed(prepend_path):
-    sys.path.insert(0, p)
-
-sys.path.insert(0, path.dirname(path.realpath(path.dirname(__file__))))
-
-for p in append_path:
-    sys.path.append(p)
+sys.path.insert(0, example_dir)
+sys.path.insert(0, emailauth_dir)
 
 from django.core.management import execute_manager
 try:
