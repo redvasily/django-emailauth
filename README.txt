@@ -2,6 +2,7 @@
 Django user email authentication
 ================================
 
+
 This is a Django application providing all essentials for authenticating users
 based on email addresses instead of usernames.
 
@@ -74,7 +75,7 @@ To see this application in action::
 Please bear in mind that all emails sent by example project are not actually
 sent but printed to stdout instead.
 
-To see how traditional one user - one email mode works:
+To see how traditional one user - one email mode works::
 
     cd emailauth/example
     python manage.py syncdb
