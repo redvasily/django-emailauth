@@ -8,7 +8,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', direct_to_template, {'template': 'index.html'}, name='index'),
+    url(r'^$', 'example.views.index', name='index'),
     (r'', include('emailauth.urls')),
     (r'^admin/(.*)', admin.site.root),
 )
