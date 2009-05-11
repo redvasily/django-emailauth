@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Account properties</h1>
+    <table>
+        <tr>
+            <th>Username:</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>First name:</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{ user.email }}</td>
+        </tr>
+    </table>
+    <a href="{% url emailauth_change_email %}">Change email</a>
+
+{% endblock %}

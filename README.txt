@@ -5,8 +5,9 @@ Django user email authentication
 This is a Django application providing all essentials for authenticating users
 based on email addresses instead of usernames.
 
-A distinctive (novel?) feature of this application is that it allows to assign
-several email addresses to each user.
+This application can operate in a traditional one user - one email mode as
+well as one user - many emails mode. And I plan to add EAUT and OpenID support
+to this mode eventually.
 
 This application consists of:
 
@@ -21,6 +22,7 @@ This application consists of:
     - User registration and email confirmation;
     - Adding and removing emails to/from existing user accounts;
     - Changing default emails
+    - Changin email (for single email mode)
 
 * Authentication backends:
 
@@ -72,13 +74,15 @@ To see this application in action::
 Please bear in mind that all emails sent by example project are not actually
 sent but printed to stdout instead.
 
+To see how traditional one user - one email mode works:
+
+    cd emailauth/example
+    python manage.py syncdb
+    python manage.py runserver --settings=settings_singleemail
+
 
 Future plans
 ------------
 
-* Maybe add a configuration option which will switch application between one
-  user - many emails mode and more traditional one user - one email mode.
-
 * Add EAUT and OpenID support so this application could be used for OpenID
   authentication and switch to emails for users without OpenID
-

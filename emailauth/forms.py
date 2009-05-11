@@ -122,7 +122,7 @@ class PasswordResetForm(forms.Form):
 
 
 class AddEmailForm(forms.Form):
-    email = forms.EmailField(label=_(u'email address to add'))
+    email = forms.EmailField(label=_(u'new email address'))
 
     def clean_email(self):
         email = self.cleaned_data['email']

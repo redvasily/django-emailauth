@@ -17,6 +17,9 @@ from emailauth.forms import (LoginForm, RegistrationForm,
     ConfirmationForm)
 from emailauth.models import UserEmail
 
+from emailauth.utils import (use_single_email, requires_single_email_mode,
+    requires_multi_emails_mode)
+
 
 # TODO: add better cookie support test
 def login(request, template_name='emailauth/login.html',
@@ -51,8 +54,14 @@ def login(request, template_name='emailauth/login.html',
 
 
 @login_required
-def account(request, template_name='emailauth/account.html'):
+def account(request, template_name=None):
     context = RequestContext(request)
+
+    if template_name is None:
+        if use_single_email():
+            template_name = 'emailauth/account_single_email.html'
+        else:
+            template_name = 'emailauth/account.html'
 
     # Maybe move this emails into context processors?
     extra_emails = UserEmail.objects.filter(user=request.user, default=False,
@@ -138,7 +147,14 @@ def verify(request, verification_key, template_name='emailauth/verify.html',
     verification_key = verification_key.lower() # Normalize before trying anything with it.
     email = UserEmail.objects.verify(verification_key)
 
-    email.user.message_set.create(message='%s email confirmed.' % email.email)
+    
+    if email is not None:
+        email.user.message_set.create(message='%s email confirmed.' % email.email)
+
+        if use_single_email():
+            email.default = True
+            email.save()
+            UserEmail.objects.filter(user=email.user, default=False).delete()
 
     if email is not None and callback is not None:
         cb_result = callback(request, email)
@@ -243,6 +259,7 @@ def reset_password(request, reset_code,
         context_instance=context)
 
 
+@requires_multi_emails_mode
 @login_required
 def add_email(request, template_name='emailauth/add_email.html'):
     if request.method == 'POST':
@@ -263,6 +280,7 @@ def add_email(request, template_name='emailauth/add_email.html'):
         context_instance=context)
 
 
+@requires_multi_emails_mode
 @login_required
 def add_email_continue(request, email,
     template_name='emailauth/add_email_continue.html'):
@@ -272,6 +290,41 @@ def add_email_continue(request, email,
         context_instance=RequestContext(request))
 
 
+@requires_single_email_mode
+@login_required
+def change_email(request, template_name='emailauth/change_email.html'):
+    if request.method == 'POST':
+        form = AddEmailForm(request.POST)
+        if form.is_valid():
+            UserEmail.objects.filter(user=request.user, default=False).delete()
+
+            email_obj = UserEmail.objects.create_unverified_email(
+                form.cleaned_data['email'], user=request.user)
+            email_obj.send_verification_email()
+            email_obj.save()
+
+            return HttpResponseRedirect(reverse('emailauth_change_email_continue',
+                args=[email_obj.email]))
+    else:
+        form = AddEmailForm()
+
+    context = RequestContext(request)
+    return render_to_response(template_name,
+        {'form': form},
+        context_instance=context)
+
+
+@requires_single_email_mode
+@login_required
+def change_email_continue(request, email,
+    template_name='emailauth/change_email_continue.html'):
+
+    return render_to_response(template_name,
+        {'email': email},
+        context_instance=RequestContext(request))
+
+
+@requires_multi_emails_mode
 @login_required
 def delete_email(request, email_id,
     template_name='emailauth/delete_email.html'):
@@ -295,6 +348,7 @@ def delete_email(request, email_id,
         context_instance=context)
 
 
+@requires_multi_emails_mode
 @login_required
 def set_default_email(request, email_id,
     template_name='emailauth/set_default_email.html'):

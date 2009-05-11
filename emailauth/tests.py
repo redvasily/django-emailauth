@@ -324,3 +324,71 @@ class TestDeleteEmail(BaseTestCase):
             'yes': 'yes',
         })
         self.assertStatusCode(response, Status.not_found)
+
+
+class TestAccountSingleEmail(BaseTestCase):
+    def setUp(self):
+        self.user, self.user_email = self.createActiveUser()
+        self.client = self.getLoggedInClient()
+        settings.EMAILAUTH_USE_SINGLE_EMAIL = True
+
+    def tearDown(self):
+        settings.EMAILAUTH_USE_SINGLE_EMAIL = False
+
+    def testAccountGet(self):
+        response = self.client.get('/account/')
+        self.assertStatusCode(response, Status.ok)
+
+class TestChangeEmail(BaseTestCase):
+    def setUp(self):
+        self.user, self.user_email = self.createActiveUser()
+        self.client = self.getLoggedInClient()
+        settings.EMAILAUTH_USE_SINGLE_EMAIL = True
+
+    def tearDown(self):
+        settings.EMAILAUTH_USE_SINGLE_EMAIL = False
+
+    def testEmailChangeWrongMode(self):
+        settings.EMAILAUTH_USE_SINGLE_EMAIL = False
+        response = self.client.get('/account/changeemail/')
+        self.assertStatusCode(response, Status.not_found)
+
+    def testEmailChange(self):
+        response = self.client.get('/account/changeemail/')
+        self.assertStatusCode(response, Status.ok)
+
+        response = self.client.post('/account/changeemail/', {
+            'email': 'user@example.org',
+        })
+
+        self.assertRedirects(response,
+            '/account/changeemail/continue/user%40example.org/')
+
+        self.assertEqual(len(mail.outbox), 1)
+
+        email = mail.outbox[0]
+
+        addr_re = re.compile(r'.*http://.*?(/\S*/)', re.UNICODE | re.MULTILINE)
+        verification_url = addr_re.search(email.body).groups()[0]
+
+        response = self.client.get(verification_url)
+
+        self.assertRedirects(response, '/account/')
+
+        client = Client()
+        response = client.post('/login/', {
+            'email': 'user@example.org',
+            'password': 'password',
+        })
+
+        self.assertRedirects(response, '/account/')
+
+        user = User.objects.get(id=self.user.id)
+        self.assertEqual(user.email, 'user@example.org')
+
+        client = Client()
+        response = client.post('/login/', {
+            'email': 'user@example.com',
+            'password': 'password',
+        })
+        self.assertStatusCode(response, Status.ok)

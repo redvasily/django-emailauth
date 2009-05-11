@@ -29,6 +29,12 @@ urlpatterns = patterns('',
         'emailauth.views.add_email_continue',
         name='emailauth_add_email_continue'),
 
+    url(r'^account/changeemail/$', 'emailauth.views.change_email',
+        name='emailauth_change_email'),
+    url(r'^account/changeemail/continue/(?P<email>.+)/$',
+        'emailauth.views.change_email_continue',
+        name='emailauth_change_email_continue'),
+
     url(r'^account/deleteemail/(\d+)/$', 'emailauth.views.delete_email',
         name='emailauth_delete_email'),
 
