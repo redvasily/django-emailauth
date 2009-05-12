@@ -93,8 +93,6 @@ INSTALLED_APPS = (
     'emailauth',
 )
 
-EMAIL_VERIFICATION_DAYS = 3
-
 AUTHENTICATION_BACKENDS = (
     'emailauth.backends.EmailBackend',
     'emailauth.backends.FallbackBackend',

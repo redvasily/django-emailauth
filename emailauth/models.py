@@ -15,6 +15,8 @@ import django.core.mail
 
 from django.conf import settings
 
+from emailauth.utils import email_verification_days
+
 class UserEmailManager(models.Manager):
     def make_random_key(self, email):
         salt = sha_constructor(str(random.random())).hexdigest()[:5]
@@ -96,7 +98,7 @@ class UserEmail(models.Model):
         
         message = render_to_string('emailauth/verification_email.txt', {
             'verification_key': self.verification_key,
-            'expiration_days': settings.EMAIL_VERIFICATION_DAYS,
+            'expiration_days': email_verification_days(),
             'site': current_site,
             'first_name': first_name,
             'first_email': first_email,
@@ -107,7 +109,7 @@ class UserEmail(models.Model):
 
 
     def verification_key_expired(self):
-        expiration_date = datetime.timedelta(days=settings.EMAIL_VERIFICATION_DAYS)
+        expiration_date = datetime.timedelta(days=email_verification_days())
         return (self.verification_key == self.VERIFIED or
             (self.code_creation_date + expiration_date <= datetime.datetime.now()))
 

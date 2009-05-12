@@ -2,6 +2,9 @@ from django.conf import settings
 from django.http import Http404
 from django.utils.functional import curry
 
+def email_verification_days():
+    return getattr(settings, 'EMAILAUTH_VERIFICATION_DAYS', 3)
+
 def use_single_email():
     return getattr(settings, 'EMAILAUTH_USE_SINGLE_EMAIL', False)
 

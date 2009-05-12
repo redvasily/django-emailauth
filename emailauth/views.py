@@ -18,7 +18,7 @@ from emailauth.forms import (LoginForm, RegistrationForm,
 from emailauth.models import UserEmail
 
 from emailauth.utils import (use_single_email, requires_single_email_mode,
-    requires_multi_emails_mode)
+    requires_multi_emails_mode, email_verification_days)
 
 
 # TODO: add better cookie support test
@@ -169,7 +169,7 @@ def verify(request, verification_key, template_name='emailauth/verify.html',
     return render_to_response(template_name,
         {
             'email': email,
-            'expiration_days': settings.EMAIL_VERIFICATION_DAYS,
+            'expiration_days': email_verification_days(),
         },
         context_instance=context)
 
@@ -195,7 +195,7 @@ def request_password_reset(request,
 
             message = render_to_string('emailauth/request_password_email.txt', {
                 'reset_code': user_email.verification_key,
-                'expiration_days': settings.EMAIL_VERIFICATION_DAYS,
+                'expiration_days': email_verification_days(),
                 'site': current_site,
                 'first_name': user_email.user.first_name,
             })
@@ -213,7 +213,7 @@ def request_password_reset(request,
     return render_to_response(template_name,
         {
             'form': form,
-            'expiration_days': settings.EMAIL_VERIFICATION_DAYS,
+            'expiration_days': email_verification_days(),
         },
         context_instance=context)
 
@@ -232,7 +232,7 @@ def reset_password(request, reset_code,
     user_email = get_object_or_404(UserEmail, verification_key=reset_code)
     if (user_email.verification_key == UserEmail.VERIFIED or
         user_email.code_creation_date +
-        timedelta(days=settings.EMAIL_VERIFICATION_DAYS) < datetime.now()):
+        timedelta(days=email_verification_days()) < datetime.now()):
 
         raise Http404()
 

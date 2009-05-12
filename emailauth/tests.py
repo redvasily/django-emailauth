@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 from emailauth.models import UserEmail
+from emailauth.utils import email_verification_days
 
 
 class Status:
@@ -170,7 +171,7 @@ class PasswordResetTest(BaseTestCase):
         reset_url, user_email = self.prepare()
         client = Client()
         user_email.code_creation_date = (datetime.now() -
-            timedelta(days=settings.EMAIL_VERIFICATION_DAYS + 1))
+            timedelta(days=email_verification_days() + 1))
         user_email.save()
 
         response = client.get(reset_url)
