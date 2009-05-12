@@ -15,9 +15,6 @@ import django.core.mail
 
 from django.conf import settings
 
-from emailauth.signals import email_created
-
-
 class UserEmailManager(models.Manager):
     def make_random_key(self, email):
         salt = sha_constructor(str(random.random())).hexdigest()[:5]
@@ -27,7 +24,6 @@ class UserEmailManager(models.Manager):
     def create_unverified_email(self, email, user=None):
         email_obj = UserEmail(email=email, user=user, default=user is None,
             verification_key=self.make_random_key(email))
-        email_created.send(sender=self.model, email=email_obj)
         return email_obj
 
     def verify(self, verification_key):
