@@ -11,9 +11,9 @@ from emailauth.models import UserEmail
 
 
 class Status:
-    ok = 200
-    redirect = 302
-    not_found = 404
+    OK = 200
+    REDIRECT = 302
+    NOT_FOUND = 404
 
 
 class BaseTestCase(TestCase):
@@ -115,7 +115,7 @@ class LoginTest(BaseTestCase):
             'email': 'user@example.com',
             'password': 'wrongpassword',
         })
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
 
 class PasswordResetTest(BaseTestCase):
@@ -153,7 +153,7 @@ class PasswordResetTest(BaseTestCase):
         self.assertTrue(user.check_password('newpassword'))
 
         response = client.get(reset_url)
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
 
     def testPasswordResetFail(self):
@@ -163,7 +163,7 @@ class PasswordResetTest(BaseTestCase):
         user_email.save()
 
         response = client.get(reset_url)
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
 
     def testPasswordResetFail2(self):
@@ -174,7 +174,7 @@ class PasswordResetTest(BaseTestCase):
         user_email.save()
 
         response = client.get(reset_url)
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
 
 class TestAddEmail(BaseTestCase):
@@ -184,7 +184,7 @@ class TestAddEmail(BaseTestCase):
 
     def testAddEmailGet(self):
         response = self.client.get('/account/addemail/')
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
     def testAddEmail(self):
         response = self.client.post('/account/addemail/', {
@@ -215,7 +215,7 @@ class TestAddEmail(BaseTestCase):
         response = self.client.post('/account/addemail/', {
             'email': 'user@example.com',
         })
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
         response = self.client.post('/account/addemail/', {
            'email': 'user@example.org',
@@ -226,7 +226,7 @@ class TestAddEmail(BaseTestCase):
         response = self.client.post('/account/addemail/', {
           'email': 'user@example.org',
         })
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
 
 class TestDeleteEmail(BaseTestCase):
@@ -253,7 +253,7 @@ class TestDeleteEmail(BaseTestCase):
             'yes': 'yes',
         })
 
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
 
 class TestSetDefaultEmail(BaseTestCase):
@@ -264,7 +264,7 @@ class TestSetDefaultEmail(BaseTestCase):
     def testSetDefaultEmailGet(self):
         response = self.client.get('/account/setdefaultemail/%s/' %
             self.user_email.id)
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
     def testSetDefaultEmail(self):
         user = self.user
@@ -295,7 +295,7 @@ class TestSetDefaultEmail(BaseTestCase):
         response = self.client.post('/account/setdefaultemail/%s/' % user_email.id, {
             'yes': 'yes',
         })
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
 class TestDeleteEmail(BaseTestCase):
     def setUp(self):
@@ -310,7 +310,7 @@ class TestDeleteEmail(BaseTestCase):
         page_url = '/account/deleteemail/%s/' % user_email.id
 
         response = self.client.get(page_url)
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
         response = self.client.post(page_url, {'yes': 'yes'})
         self.assertRedirects(response, '/account/')
@@ -323,7 +323,7 @@ class TestDeleteEmail(BaseTestCase):
         response = self.client.post('/account/deleteemail/%s/' % user_email.id, {
             'yes': 'yes',
         })
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
 
 class TestAccountSingleEmail(BaseTestCase):
@@ -337,7 +337,7 @@ class TestAccountSingleEmail(BaseTestCase):
 
     def testAccountGet(self):
         response = self.client.get('/account/')
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
 class TestChangeEmail(BaseTestCase):
     def setUp(self):
@@ -351,11 +351,11 @@ class TestChangeEmail(BaseTestCase):
     def testEmailChangeWrongMode(self):
         settings.EMAILAUTH_USE_SINGLE_EMAIL = False
         response = self.client.get('/account/changeemail/')
-        self.assertStatusCode(response, Status.not_found)
+        self.assertStatusCode(response, Status.NOT_FOUND)
 
     def testEmailChange(self):
         response = self.client.get('/account/changeemail/')
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
 
         response = self.client.post('/account/changeemail/', {
             'email': 'user@example.org',
@@ -391,4 +391,4 @@ class TestChangeEmail(BaseTestCase):
             'email': 'user@example.com',
             'password': 'password',
         })
-        self.assertStatusCode(response, Status.ok)
+        self.assertStatusCode(response, Status.OK)
