@@ -82,6 +82,28 @@ To see how traditional one user - one email mode works::
     python manage.py runserver --settings=settings_singleemail
 
 
+Configuration
+-------------
+
+Emailauth uses following configuration vairables:
+
+* ``EMAILAUTH_USE_SINGLE_EMAIL`` (default False) - selects between one user - one
+  email and one user many email mode.
+
+* ``EMAILAUTH_VERIFICATION_DAYS`` (default 3) - how long will email
+  verification codes work
+
+
+Maintenance
+-----------
+
+Emailauth provides ``cleanupemailauth`` manage.py command which removes
+expored UserEmail objects and inactive users associated with epxired UserEmail
+objects.
+
+You might want to run it occasionally.
+
+
 Future plans
 ------------
 

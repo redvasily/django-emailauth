@@ -39,6 +39,20 @@ class UserEmailManager(models.Manager):
             email.save()
             return email
 
+    def delete_expired(self):
+        date_threshold = (datetime.datetime.now() -
+            datetime.timedelta(days=email_verification_days()))
+        expired_emails = self.filter(code_creation_date__lt=date_threshold)
+    
+        for email in expired_emails:
+            if not email.verified:
+                user = email.user
+                emails = user.useremail_set.all()
+                if not user.is_active:
+                    user.delete()
+                else:
+                    email.delete()
+
 
 class UserEmail(models.Model):
     class Meta:

@@ -393,3 +393,45 @@ class TestChangeEmail(BaseTestCase):
             'password': 'password',
         })
         self.assertStatusCode(response, Status.OK)
+
+
+class TestCleanup(BaseTestCase):
+    def testCleanup(self):
+        user1 = User(username='user1', email='user1@example.com', is_active=True)
+        user1.save()
+
+        old_enough = (datetime.now() - timedelta(days=email_verification_days() + 1))
+        not_old_enough = (datetime.now() -
+            timedelta(days=email_verification_days() - 1))
+
+        email1 = UserEmail(user=user1, email='user1@example.com',
+            verified=True, default=True, 
+            verification_key=UserEmail.VERIFIED + 'asd',
+            code_creation_date=old_enough)
+        email1.save() 
+
+        user2 = User(username='user2', email='user2@example.com', is_active=False)
+        user2.save()
+
+        email2 = UserEmail(user=user2, email='user2@example.com',
+            verified=False, default=True, 
+            verification_key='key1',
+            code_creation_date=old_enough)
+        email2.save()
+
+        user3 = User(username='user3', email='user3@example.com', is_active=False)
+        user3.save()
+
+        email3 = UserEmail(user=user3, email='user3@example.com',
+            verified=False, default=True, 
+            verification_key='key2',
+            code_creation_date=not_old_enough)
+        email3.save()
+
+        UserEmail.objects.delete_expired()
+
+        user_ids = [user.id for user in User.objects.all()]
+        user_email_ids = [user_email.id for user_email in UserEmail.objects.all()]
+
+        self.assertEqual(list(sorted(user_ids)), list(sorted([user1.id, user3.id])))
+        self.assertEqual(list(sorted(user_email_ids)), list(sorted([email1.id, email3.id])))
