@@ -8,8 +8,6 @@ from emailauth.models import UserEmail
 
 attrs_dict = {}
 
-## TODO: make a proper cookie check
-
 class LoginForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict)))
     password = forms.CharField(widget=forms.PasswordInput(attrs=dict(attrs_dict),

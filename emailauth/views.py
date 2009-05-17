@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from urllib import urlencode
 
 import django.core.mail
 from django.conf import settings
@@ -11,6 +12,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from django import forms
+import django.forms.forms
+import django.forms.util
+
+from django.utils.translation import ugettext_lazy as _
 
 from emailauth.forms import (LoginForm, RegistrationForm,
     PasswordResetRequestForm, PasswordResetForm, AddEmailForm, DeleteEmailForm,
@@ -21,7 +27,6 @@ from emailauth.utils import (use_single_email, requires_single_email_mode,
     requires_multi_emails_mode, email_verification_days)
 
 
-# TODO: add better cookie support test
 def login(request, template_name='emailauth/login.html',
     redirect_field_name=REDIRECT_FIELD_NAME):
 
@@ -30,13 +35,33 @@ def login(request, template_name='emailauth/login.html',
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
-                redirect_to = settings.LOGIN_REDIRECT_URL
             from django.contrib.auth import login
             login(request, form.get_user())
-            #if request.session.test_cookie_worked():
-            #    request.session.delete_test_cookie()
+
+            if request.get_host() == 'testserver':
+                if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
+                    redirect_to = settings.LOGIN_REDIRECT_URL
+                return HttpResponseRedirect(redirect_to)
+
+            request.session.set_test_cookie()
+
+            return HttpResponseRedirect(settings.LOGIN_URL + '?' + urlencode({
+                'testcookiesupport': '',
+                redirect_field_name: redirect_to,
+            }))
+    elif 'testcookiesupport' in request.GET:
+        if request.session.test_cookie_worked():
+            request.session.delete_test_cookie()
+            if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
+                redirect_to = settings.LOGIN_REDIRECT_URL
             return HttpResponseRedirect(redirect_to)
+        else:
+            form = LoginForm()
+            errorlist = forms.util.ErrorList()
+            errorlist.append(_("Your Web browser doesn't appear to "
+                "have cookies enabled. Cookies are required for logging in."))
+            form._errors = forms.util.ErrorDict()
+            form._errors[forms.forms.NON_FIELD_ERRORS] = errorlist
     else:
         form = LoginForm()
 
