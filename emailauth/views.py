@@ -394,3 +394,14 @@ def set_default_email(request, email_id,
     return render_to_response(template_name,
         {'form': form, 'email': user_email},
         context_instance=context)
+
+
+@login_required
+def resend_verification_email(request, email_id):
+    user_email = get_object_or_404(UserEmail, id=email_id, user=request.user,
+        verified=False)
+    user_email.send_verification_email()
+
+    return HttpResponseRedirect(reverse('emailauth_add_email_continue',
+        args=[user_email.email]))
+

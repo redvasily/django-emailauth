@@ -118,9 +118,11 @@ class UserEmail(models.Model):
             'first_email': first_email,
         })
 
+        self.code_creation_date = datetime.datetime.now()
+
         django.core.mail.send_mail(subject, message,
             settings.DEFAULT_FROM_EMAIL, [self.email])
-
+        
 
     def verification_key_expired(self):
         expiration_date = datetime.timedelta(days=email_verification_days())

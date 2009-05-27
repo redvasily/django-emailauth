@@ -33,7 +33,7 @@
         <ul>
             {% for email in unverified_emails %}
                 <li>
-                    {{ email }} &ndash; <a href="#" title="Looks like a good idea">resend verification email</a>
+                    {{ email }} &ndash; <a href="{% url emailauth_resend_verification_email email.id %}">resend verification email</a>
                 </li>
             {% endfor %}
         </ul>

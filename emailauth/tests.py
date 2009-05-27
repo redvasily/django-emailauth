@@ -395,6 +395,23 @@ class TestChangeEmail(BaseTestCase):
         self.assertStatusCode(response, Status.OK)
 
 
+class TestResendEmail(BaseTestCase):
+    def setUp(self):
+        self.user, self.user_email = self.createActiveUser()
+        self.client = self.getLoggedInClient()
+
+    def testResendEmail(self):
+        user = self.user
+        user_email = UserEmail(user=user, email='user@example.org', verified=False,
+            default=False, verification_key='abcdef')
+        user_email.save()
+
+        response = self.client.get('/account/resendemail/%s/' % user_email.id)
+        self.assertRedirects(response,
+            '/account/addemail/continue/user%40example.org/')
+        self.assertEqual(len(mail.outbox), 1)
+        
+
 class TestCleanup(BaseTestCase):
     def testCleanup(self):
         user1 = User(username='user1', email='user1@example.com', is_active=True)
