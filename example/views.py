@@ -2,6 +2,7 @@ from os.path import dirname, abspath, join
 
 from django.shortcuts import render_to_response
 from django import template
+from django.template import RequestContext
 from django.contrib.markup.templatetags.markup import restructuredtext
 
 def index(request):
@@ -12,4 +13,5 @@ def index(request):
     except template.TemplateSyntaxError:
         content = u'<pre>' + raw_content + u'</pre>'
         
-    return render_to_response('index.html', {'content': content})
+    return render_to_response('index.html', {'content': content},
+        context_instance=RequestContext(request))
