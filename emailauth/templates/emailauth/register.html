@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n %}
 
 {% block content %}
-    <h1>Registration</h1>
+    <h1>{% trans 'Registration' %}</h1>
     <form action="." method="post">
         <table>
-            {{ form }}
+            {{ form.as_table }}
         </table>
-        <input type="submit" value="Register" />
+        <input type="submit" value="{% trans 'Register' %}" />
     </form>
 {% endblock %}

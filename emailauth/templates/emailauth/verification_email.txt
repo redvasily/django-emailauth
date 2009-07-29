@@ -3,6 +3,5 @@ Dear {{ first_name }},
 {% if first_email %}
 To activate your account on {{ site.name }} please follow this link:{% else %}To verify your email for your account on {{ site.name }} please follow this link:{% endif %}
     http://{{ site.domain }}{% url emailauth_verify verification_key %} 
-
 The link above will expire in {{ expiration_days }} days.
 {# vim: set ft=django: #}

@@ -1,1 +1,1 @@
-[{{ site }}]Please confirm your email
+{% load i18n %}[{{ site }}]{% trans 'Please confirm your email' %}

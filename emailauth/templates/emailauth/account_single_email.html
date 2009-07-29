@@ -1,21 +1,21 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n %}
 
 {% block content %}
-    <h1>Account properties</h1>
+    <h1>{% trans 'Account properties' %}</h1>
     <table>
         <tr>
-            <th>Username:</th>
+            <th>{% trans 'Username:' %}</th>
             <td>{{ user.username }}</td>
         </tr>
         <tr>
-            <th>First name:</th>
+            <th>{% trans 'First name:' %}</th>
             <td>{{ user.first_name }}</td>
         </tr>
         <tr>
-            <th>Email:</th>
+            <th>{% trans 'Email:'%}</th>
             <td>{{ user.email }}</td>
         </tr>
     </table>
-    <a href="{% url emailauth_change_email %}">Change email</a>
+    <a href="{% url emailauth_change_email %}">{% trans 'Change email' %}</a>
 
 {% endblock %}

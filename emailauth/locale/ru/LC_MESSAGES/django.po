@@ -1,0 +1,275 @@
+# Russian translation
+# This file is distributed under the same license as the django-emailauth package.
+# Ivan Gromov <summer.is.gone@gmail.com> 2009
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-09 18:41+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Ivan Gromov <summer.is.gone@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:23
+msgid ""
+"Please enter a correct email and password. Note that both fields are case-"
+"sensitive."
+msgstr ""
+"Введите правильные электронный адрес и пароль. Оба поля чувствительны к "
+"регистру."
+
+#: forms.py:26
+msgid "This account is inactive."
+msgstr "Аккаунт заблокирован"
+
+#: forms.py:49
+msgid "You must type the same password each time."
+msgstr "Пароль и подтверждение должны совпадать"
+
+#: forms.py:55
+msgid "email address"
+msgstr "Электронный адрес"
+
+#: forms.py:56
+msgid "first name"
+msgstr "Имя"
+
+#: forms.py:58
+msgid "That's how we'll call you in emails"
+msgstr "Как к Вам обращаться в письмах"
+
+#: forms.py:60 forms.py:115
+msgid "password"
+msgstr "Пароль"
+
+#: forms.py:62 forms.py:117
+msgid "password (again)"
+msgstr "Подтверждение пароля"
+
+#: forms.py:71 forms.py:130
+msgid "This email is already taken."
+msgstr "Этот адрес уже используется"
+
+#: forms.py:102
+msgid "your email address"
+msgstr "Ваш электронный адрес"
+
+#: forms.py:110
+msgid "Unknown email"
+msgstr "Электронный адрес не зарегистрирован"
+
+#: forms.py:123
+msgid "new email address"
+msgstr "Новый электронный адрес"
+
+#: forms.py:146
+msgid "You can not delete your last verified email."
+msgstr "Нельзя удалять последний подтвержденный электронный адррес"
+
+#: models.py:59
+msgid "user email"
+msgstr "Электронный адрес пользователя"
+
+#: models.py:60
+msgid "user emails"
+msgstr "Электронные адреса пользователя"
+
+#: models.py:66
+msgid "user"
+msgstr "Пользователь"
+
+#: models.py:71
+msgid "verification key"
+msgstr "Код подтверждения"
+
+#: views.py:61
+msgid ""
+"Your Web browser doesn't appear to have cookies enabled. Cookies are "
+"required for logging in."
+msgstr ""
+"Ваш браузер не поддерживает cookies. Для входа в системуcookies должны быть "
+"включены"
+
+#: views.py:177
+#, python-format
+msgid "%s email confirmed."
+msgstr "Электронный адрес %s подтвержден."
+
+#: templates/emailauth/account.html:4
+#: templates/emailauth/account_single_email.html:4
+msgid "Account properties"
+msgstr "Свойства профиля"
+
+#: templates/emailauth/account.html:7
+#: templates/emailauth/account_single_email.html:7
+msgid "Username:"
+msgstr "Пользователь:"
+
+#: templates/emailauth/account.html:11
+#: templates/emailauth/account_single_email.html:11
+msgid "First name:"
+msgstr "Имя:"
+
+#: templates/emailauth/account.html:15
+msgid "Default email:"
+msgstr "Электронный адрес по умолчанию"
+
+#: templates/emailauth/account.html:19
+msgid "Extra emails"
+msgstr "Дополнительные адреса"
+
+#: templates/emailauth/account.html:25
+msgid "Set as default"
+msgstr "Установить по умоллчанию"
+
+#: templates/emailauth/account.html:26
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/emailauth/account.html:32
+msgid "Unverified emails"
+msgstr "Неподтвержденные адерса"
+
+#: templates/emailauth/account.html:36
+msgid "resend verification email"
+msgstr "Отправить подтверждение ещё раз"
+
+#: templates/emailauth/account.html:41
+msgid "Add email"
+msgstr "Добавить электронный адрес"
+
+#: templates/emailauth/account_single_email.html:15
+msgid "Email:"
+msgstr "Электронный адрес:"
+
+#: templates/emailauth/account_single_email.html:19
+msgid "Change email"
+msgstr "Изменить электронный адрес"
+
+#: templates/emailauth/add_email.html:4
+msgid "Add another email to your account"
+msgstr "Добавтиь ещё один электронный адрес к профилю"
+
+#: templates/emailauth/add_email.html:9
+#: templates/emailauth/change_email.html:9
+#: templates/emailauth/request_password.html:9
+#: templates/emailauth/reset_password.html:9
+msgid "submit"
+msgstr "Отправить"
+
+#: templates/emailauth/change_email.html:4
+msgid "Set new email address"
+msgstr "Установить новый электронный адрес"
+
+#: templates/emailauth/delete_email.html:4
+msgid "Delete your email"
+msgstr "Удалить электронный адрес"
+
+#: templates/emailauth/delete_email.html:6
+msgid "Yes"
+msgstr "Да"
+
+#: templates/emailauth/delete_email.html:7
+#: templates/emailauth/set_default_email.html:7
+msgid "No"
+msgstr "Нет"
+
+#: templates/emailauth/logged_out.html:4
+msgid "You are logged out!"
+msgstr "Вы вышли из системы"
+
+#: templates/emailauth/login.html:4 templates/emailauth/login.html.py:9
+#: templates/emailauth/loginform.html:12
+msgid "Login"
+msgstr "Вход в систему"
+
+#: templates/emailauth/login.html:11 templates/emailauth/loginform.html:14
+#: templates/emailauth/request_password.html:4
+msgid "Forgot your password?"
+msgstr "Забыли пароль?"
+
+#: templates/emailauth/loginform.html:4
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#: templates/emailauth/loginform.html:5
+msgid "Account"
+msgstr "Профиль"
+
+#: templates/emailauth/loginform.html:6
+msgid "Logout"
+msgstr "Выход"
+
+#: templates/emailauth/loginform.html:13 templates/emailauth/register.html:10
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: templates/emailauth/register.html:5
+msgid "Registration"
+msgstr "Регистрация"
+
+#: templates/emailauth/reset_password.html:4
+msgid "Set new password"
+msgstr "Сменить пароль"
+
+#: templates/emailauth/reset_password_continue.html:4
+msgid "Confirm your email"
+msgstr "Подтверждение электронного адреса"
+
+#: templates/emailauth/reset_password_continue.html:5
+#, python-format
+msgid ""
+"\n"
+"        We've sent an email to <strong class=\"highlight\">%(email)s</"
+"strong> containing a link\n"
+"        you'll need to follow to reset your password. You should receive "
+"the\n"
+"        email within the next few minutes.\n"
+"        "
+msgstr ""
+"\n"
+"        На Ваш адрес <strong class=\"highlight\">%(email)s</strong>        "
+"мы отправили письмо, содержащее ссылку с кодом \n"
+"        для сброса пароля. Письмо будет доставлено \n"
+"        в течение нескольких минут.\n"
+"        "
+
+#: templates/emailauth/reset_password_continue.html:11
+msgid "Didn't get the email?"
+msgstr "Не получили письмо?"
+
+#: templates/emailauth/reset_password_continue.html:13
+msgid ""
+"Below are some of the most common reasons you might not be getting the "
+"message:"
+msgstr "Это могло произойти по следующим причинам:"
+
+#: templates/emailauth/reset_password_continue.html:15
+msgid "First, be patient, sometimes it takes a while for the email to arrive."
+msgstr "Во-первых, будьте терпеливы, иногда письмо может задержаться в пути"
+
+#: templates/emailauth/reset_password_continue.html:16
+msgid "Check above to ensure that you entered your email address correctly."
+msgstr "Проверьте правильность ввода электронного адреса"
+
+#: templates/emailauth/reset_password_continue.html:17
+msgid ""
+"Check your junk email box, the message might have been filtered as junk."
+msgstr "Проверьте, не было ли письмо отфильтровано как спам"
+
+#: templates/emailauth/set_default_email.html:4
+#, python-format
+msgid "Set %(email)s as your new default email?"
+msgstr "Установить адрес %(email)s как основной?"
+
+#: templates/emailauth/verify.html:5
+msgid "Verified"
+msgstr "Подтверждено"
+
+#: templates/emailauth/verify.html:7
+msgid "Not verified"
+msgstr "Электронный адрес не подтвержден"

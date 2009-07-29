@@ -1,43 +1,43 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n %}
 
 {% block content %}
-    <h1>Account properties</h1>
+    <h1>{% trans 'Account properties' %}</h1>
     <table>
         <tr>
-            <th>Username:</th>
+            <th>{% trans 'Username:' %}</th>
             <td>{{ user.username }}</td>
         </tr>
         <tr>
-            <th>First name:</th>
+            <th>{% trans 'First name:' %}</th>
             <td>{{ user.first_name }}</td>
         </tr>
         <tr>
-            <th>Default email:</th>
+            <th>{% trans 'Default email:' %}</th>
             <td>{{ user.email }}</td>
         </tr>
     </table>
-    <h2>Extra emails</h2>
+    <h2>{% trans 'Extra emails' %}</h2>
     {% if extra_emails %}
         <ul>
             {% for email in extra_emails %}
                 <li>
                     {{ email }}
-                    <a class="toollink" href="{% url emailauth_set_default_email email.id %}">Set as default</a>
-                    <a class="toollink" href="{% url emailauth_delete_email email.id %}">Delete</a>
+                    <a class="toollink" href="{% url emailauth_set_default_email email.id %}">{% trans 'Set as default' %}</a>
+                    <a class="toollink" href="{% url emailauth_delete_email email.id %}">{% trans 'Delete' %}</a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
     {% if unverified_emails %}
-        <h3>Unverified emails</h3>
+        <h3>{% trans 'Unverified emails' %}</h3>
         <ul>
             {% for email in unverified_emails %}
                 <li>
-                    {{ email }} &ndash; <a href="{% url emailauth_resend_verification_email email.id %}">resend verification email</a>
+                    {{ email }} &ndash; <a href="{% url emailauth_resend_verification_email email.id %}">{% trans 'resend verification email' %}</a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
-    <a href="{% url emailauth_add_email %}">Add email</a>
+    <a href="{% url emailauth_add_email %}">{% trans 'Add email' %}</a>
 
 {% endblock %}

@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+% extends "base.html" %}{% load i18n %}
 
 {% block content %}
     {% if email %}
-        <h1>Verified</h1>
+        <h1>{% trans 'Verified' %}</h1>
     {% else %}
-        <h1>Not verified</h1>
+        <h1>{% trans 'Not verified' %}</h1>
     {% endif %}
 {% endblock %}
 

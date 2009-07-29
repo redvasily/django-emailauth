@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n %}
 
 {% block content %}
-    <h2>Delete your email {{ email }}?</h2>
+    <h2>{% trans 'Delete your email' %} {{ email }}?</h2>
     <form action="." method="post">
-        <input type="submit" name="yes" value="Yes" />
-        <a class="choice" href="{% url emailauth_account %}">No</a>
+        <input type="submit" name="yes" value="{% trans 'Yes' %}" />
+        <a class="choice" href="{% url emailauth_account %}">{% trans 'No' %}</a>
     </form>
 {% endblock %}

@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% laod i18n %}
 
 {% block content %}
-    <h2>Set {{ email }} as your new default email?</h2>
+    <h2>{% blocktrans %}Set {{ email }} as your new default email?{% endblocktrans %}</h2>
     <form action="." method="post">
-        <input type="submit" name="yes" value="Yes" />
-        <a class="choice" href="{% url emailauth_account %}">No</a>
+        <input type="submit" name="yes" value="{% tans 'Yes' %}" />
+        <a class="choice" href="{% url emailauth_account %}">{% trans 'No' %}</a>
     </form>
 {% endblock %}
