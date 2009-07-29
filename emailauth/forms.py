@@ -55,7 +55,7 @@ class RegistrationForm(forms.Form):
     email = forms.EmailField(label=_(u'email address'))
     first_name = forms.CharField(label=_(u'first name'),
         max_length=get_max_length(User, 'first_name'),
-        help_text=u"That's how we'll call you in emails")
+        help_text=_(u"That's how we'll call you in emails"))
     password1 = forms.CharField(widget=forms.PasswordInput(render_value=False),
         label=_(u'password'))
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False),
@@ -68,7 +68,7 @@ class RegistrationForm(forms.Form):
 
         try:
             user = UserEmail.objects.get(email=email)
-            raise forms.ValidationError(u'This email is already taken.')
+            raise forms.ValidationError(_(u'This email is already taken.'))
         except UserEmail.DoesNotExist:
             pass
         return email
@@ -107,7 +107,7 @@ class PasswordResetRequestForm(forms.Form):
             user_email = UserEmail.objects.get(email=data['email'])
             return data['email']
         except UserEmail.DoesNotExist:
-            raise forms.ValidationError(u'Unknown email')
+            raise forms.ValidationError(_(u'Unknown email'))
 
 
 class PasswordResetForm(forms.Form):
@@ -127,7 +127,7 @@ class AddEmailForm(forms.Form):
 
         try:
             user = UserEmail.objects.get(email=email)
-            raise forms.ValidationError(u'This email is already taken.')
+            raise forms.ValidationError(_(u'This email is already taken.'))
         except UserEmail.DoesNotExist:
             pass
         return email
@@ -143,8 +143,8 @@ class DeleteEmailForm(forms.Form):
     def clean(self):
         count = UserEmail.objects.filter(user=self.user).count()
         if UserEmail.objects.filter(user=self.user, verified=True).count() < 2:
-            raise forms.ValidationError('You can not delete your last verified '
-                'email.')
+            raise forms.ValidationError(_('You can not delete your last verified '
+                'email.'))
         return self.cleaned_data
 
 

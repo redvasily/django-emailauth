@@ -174,7 +174,7 @@ def verify(request, verification_key, template_name='emailauth/verify.html',
 
     
     if email is not None:
-        email.user.message_set.create(message='%s email confirmed.' % email.email)
+        email.user.message_set.create(message=_('%s email confirmed.') % email.email)
 
         if use_single_email():
             email.default = True
