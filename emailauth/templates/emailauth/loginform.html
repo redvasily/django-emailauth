@@ -1,0 +1,17 @@
+{% load i18n %}
+<div class="logarea">
+{% if user.is_authenticated %}
+    <span>{% trans 'Welcome' %}, {{ user.first_name }}!</span>
+    <a href="{% url emailauth_account %}">{% trans 'Account' %}</a>
+    <a href="{% url logout %}">{% trans 'Logout' %}</a>
+{% else %}
+    <form action="{% url login %}" method="post">
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="{% trans 'Login' %}" />
+        <a href="{% url register %}">{% trans 'Register' %}</a>
+        <a href="{% url emailauth_request_password_reset %}">{% trans 'Forgot your password?' %}</a>
+    </form>
+{% endif %}
+</div>
