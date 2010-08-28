@@ -11,3 +11,4 @@ Session.vim
 bin/
 include/
 lib/
+build/
