@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from urllib import urlencode
+from urllib import urlencode, quote_plus
 
 import django.core.mail
 from django.conf import settings
@@ -137,7 +137,7 @@ def register(request, callback=default_register_callback):
 
             email_obj.save()
             return HttpResponseRedirect(reverse('emailauth_register_continue',
-                args=[email_obj.email]))
+                args=[quote_plus(email_obj.email)]))
     else:
         form = RegistrationForm()
 
@@ -230,7 +230,7 @@ def request_password_reset(request,
 
             return HttpResponseRedirect(
                 reverse('emailauth_request_password_reset_continue',
-                args=[email]))
+                args=[quote_plus(email)]))
     else:
         form = PasswordResetRequestForm()
 
@@ -295,7 +295,7 @@ def add_email(request, template_name='emailauth/add_email.html'):
             email_obj.send_verification_email()
             email_obj.save()
             return HttpResponseRedirect(reverse('emailauth_add_email_continue',
-                args=[email_obj.email]))
+                args=[quote_plus(email_obj.email)]))
     else:
         form = AddEmailForm()
 
@@ -329,7 +329,7 @@ def change_email(request, template_name='emailauth/change_email.html'):
             email_obj.save()
 
             return HttpResponseRedirect(reverse('emailauth_change_email_continue',
-                args=[email_obj.email]))
+                args=[quote_plus(email_obj.email)]))
     else:
         form = AddEmailForm()
 
@@ -403,5 +403,5 @@ def resend_verification_email(request, email_id):
     user_email.send_verification_email()
 
     return HttpResponseRedirect(reverse('emailauth_add_email_continue',
-        args=[user_email.email]))
+        args=[quote_plus(user_email.email)]))
 
