@@ -1,1 +1,6 @@
 Author of django-emailauth is Vasily Sulatskov <redvasily@gmail.com>
+
+
+The CONTRIBUTORS -- people who have submitted patches, reported bugs and etc.:
+ 
+ * Ivan Gromov <summer.is.gone@gmail.com>
