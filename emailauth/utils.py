@@ -6,7 +6,7 @@ def email_verification_days():
     return getattr(settings, 'EMAILAUTH_VERIFICATION_DAYS', 3)
 
 def use_single_email():
-    return getattr(settings, 'EMAILAUTH_USE_SINGLE_EMAIL', False)
+    return getattr(settings, 'EMAILAUTH_USE_SINGLE_EMAIL', True)
 
 def require_emailauth_mode(func, emailauth_use_singe_email):
     def wrapper(*args, **kwds):

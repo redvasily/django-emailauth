@@ -87,7 +87,7 @@ Configuration
 
 Emailauth uses following configuration vairables:
 
-* ``EMAILAUTH_USE_SINGLE_EMAIL`` (default False) - selects between one user - one
+* ``EMAILAUTH_USE_SINGLE_EMAIL`` (default True) - selects between one user - one
   email and one user many email mode.
 
 * ``EMAILAUTH_VERIFICATION_DAYS`` (default 3) - how long will email
@@ -103,10 +103,3 @@ expored UserEmail objects and inactive users associated with epxired UserEmail
 objects.
 
 You might want to run it occasionally.
-
-
-Future plans
-------------
-
-* Add EAUT and OpenID support so this application could be used for OpenID
-  authentication and switch to emails for users without OpenID
