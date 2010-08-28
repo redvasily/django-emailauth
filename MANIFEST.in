@@ -1,6 +1,6 @@
 include LICENSE.txt
 include MANIFEST.in
-include README.txt
+include README.rst
 include AUTHORS.txt
 recursive-include example *.py *.html *.txt *.css
 recursive-include emailauth *.html *.txt
