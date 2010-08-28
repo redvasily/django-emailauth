@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.contrib.markup.templatetags.markup import restructuredtext
 
 def index(request):
-    readme_file = join(dirname(dirname(abspath(__file__))), 'README.txt')
+    readme_file = join(dirname(dirname(abspath(__file__))), 'README.rst')
     raw_content = open(readme_file).read()
     try:
         content = restructuredtext(raw_content)
