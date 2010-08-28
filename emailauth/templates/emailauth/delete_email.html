@@ -1,6 +1,6 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "emailauth/base.html" %}{% load i18n %}
 
-{% block content %}
+{% block emailauth_content %}
     <h2>{% trans 'Delete your email' %} {{ email }}?</h2>
     <form action="." method="post">
         <input type="submit" name="yes" value="{% trans 'Yes' %}" />

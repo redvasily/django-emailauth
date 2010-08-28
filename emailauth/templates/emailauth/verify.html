@@ -1,6 +1,6 @@
-% extends "base.html" %}{% load i18n %}
+{% extends "emailauth/base.html" %}{% load i18n %}
 
-{% block content %}
+{% block emailauth_content %}
     {% if email %}
         <h1>{% trans 'Verified' %}</h1>
     {% else %}
