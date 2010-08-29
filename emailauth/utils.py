@@ -8,6 +8,9 @@ def email_verification_days():
 def use_single_email():
     return getattr(settings, 'EMAILAUTH_USE_SINGLE_EMAIL', True)
 
+def use_automaintenance():
+    return getattr(settings, 'EMAILAUTH_USE_AUTOMAINTENANCE', True)
+
 def require_emailauth_mode(func, emailauth_use_singe_email):
     def wrapper(*args, **kwds):
         if use_single_email() == emailauth_use_singe_email:

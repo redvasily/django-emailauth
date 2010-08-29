@@ -15,7 +15,7 @@ import django.core.mail
 
 from django.conf import settings
 
-from emailauth.utils import email_verification_days
+from emailauth.utils import email_verification_days, use_automaintenance
 
 class UserEmailManager(models.Manager):
     def make_random_key(self, email):
@@ -24,6 +24,9 @@ class UserEmailManager(models.Manager):
         return key
 
     def create_unverified_email(self, email, user=None):
+        if use_automaintenance():
+            self.delete_expired()
+        
         email_obj = UserEmail(email=email, user=user, default=user is None,
             verification_key=self.make_random_key(email))
         return email_obj
