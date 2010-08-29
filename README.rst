@@ -7,8 +7,7 @@ This is a Django application providing all essentials for authenticating users
 based on email addresses instead of usernames.
 
 This application can operate in a traditional one user - one email mode as
-well as one user - many emails mode. And I plan to add EAUT and OpenID support
-to this mode eventually.
+well as one user - many emails mode.
 
 This application consists of:
 
@@ -23,7 +22,7 @@ This application consists of:
     - User registration and email confirmation;
     - Adding and removing emails to/from existing user accounts;
     - Changing default emails
-    - Changin email (for single email mode)
+    - Changing email (for single email mode)
 
 * Authentication backends:
 
@@ -82,24 +81,118 @@ To see how traditional one user - one email mode works::
     python manage.py runserver --settings=settings_singleemail
 
 
+Installation and configuration
+------------------------------
+
+Installation
+~~~~~~~~~~~~
+
+First you need to somehow obtain 'emailauth' package.
+
+Place 'emailauth' directory somewhere on your PYHTONPATH, for example in your
+project directory, next to your settings.py -- that's the same place where
+``python manage.py startapp`` creates applications.
+
+If you are using some kind of isolated environment, like virtualenv, you can
+just perform a regular installation::
+
+    python setup.py install
+
+Or::
+    
+    pip install django-emailauth
+
+Or::
+    
+    easy_install django-emailauth
+
+
 Configuration
--------------
+~~~~~~~~~~~~~
 
-Emailauth uses following configuration vairables:
+Now you need to make several changes to your settings.py
 
-* ``EMAILAUTH_USE_SINGLE_EMAIL`` (default True) - selects between one user - one
-  email and one user many email mode.
+* Add ``'emailauth'`` to your ``INSTALLED_APPS``
 
-* ``EMAILAUTH_VERIFICATION_DAYS`` (default 3) - how long will email
-  verification codes work
+* Plug emailauth's authentication backends::
+
+    AUTHENTICATION_BACKENDS = (
+        'emailauth.backends.EmailBackend',
+        'emailauth.backends.FallbackBackend',
+    )
+
+* Configure ``LOGIN_REDIRECT_URL`` and ``LOGIN_URL``. Emailauth's default
+  urls.py expects them to be like this::
+
+    LOGIN_REDIRECT_URL = '/account/'
+    LOGIN_URL = '/login/'
+
+* Optionally change a life time of email verification codes by changing
+  ``EMAILAUTH_VERIFICATION_DAYS`` (default value is 3).
+
+* Optionally set ``EMAILAUTH_USE_SINGLE_EMAIL = False`` if you want to use
+  emailauth in "multiple-emails mode".
+
+Now include emailauth's urls.py from your site's urls.py. Of course you may opt
+for not including whole emailauth.urls, and write your own configuration, but
+if you decide to use the provided urls.py, it will look like this::
+
+    urlpatterns = patterns('',
+        (r'', include('emailauth.urls')),
+    )
 
 
 Maintenance
------------
+~~~~~~~~~~~
+
+By default emailauth uses automatic maintenance - it deletes expired UserEmail
+objects when a new unverified email is created.
+
+If you for some reason want to deactivate it and perform such maintenance
+manually you can do it:
+
+* Set ``EMAILAUTH_USE_AUTOMAINTENANCE = False`` in settings.py
+
+* Run ``cleanupemailauth`` management command when you want to perform the
+  cleanup::
+    
+    python manage.py clenupemailauth
 
 
-Emailauth provides ``cleanupemailauth`` manage.py command which removes
-expored UserEmail objects and inactive users associated with epxired UserEmail
-objects.
+Template customization
+~~~~~~~~~~~~~~~~~~~~~~
 
-You might want to run it occasionally.
+Emailauth comes with a set of templates that should get you started, however
+they won't be integrated with your site's templates - they don't extend the
+right template and use wrong block for main content.
+
+Don't worry, it's very easy to fix. All emailauth's templates extend
+``emailauth/base.html`` and use ``emailauth_content`` block for content, so all
+you need, is to modify ``emailauth/base.html`` and make it extend right
+template and place ``emailauth_content`` block into right block specifc to your
+site.
+
+For example if your site's main template is ``mybase.html`` and you place all
+content into ``mycontent`` block, you need to make following
+``emailauth/base.html``::
+
+    {% extends "mybase.html" %}
+
+    {% block mycontent %}
+        {% block emailauth_content %}
+        {% endblock %}
+    {% endblock %}
+
+
+That's all
+~~~~~~~~~~
+
+By this point, if you started a new project and followed all the above
+instructions above you should have a working instance of emailauth application.
+
+To test it, start a server::
+
+    python manage.py runserver
+
+And open a registration page in your browser:
+``http://127.0.0.1:8000/register/`` - it should display a registration page.
